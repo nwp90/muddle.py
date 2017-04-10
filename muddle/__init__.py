@@ -17,4 +17,4 @@ __version__ = '0.1.0'
 
 # Module namespace.
 
-from .core import authenticate
+from .muddle import Muddle
