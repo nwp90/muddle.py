@@ -1,9 +1,9 @@
 import logging
 
-import .course
-import .category
-import .group
-
+from .api import course
+from .api import users
+from .api import category
+from .api import group
 
 log = logging.getLogger(__name__)
 
@@ -23,6 +23,9 @@ class Config:
     def __init__(self, api_key, api_url):
         self.api_key = api_key
         self.api_url = api_url + MOODLE_WS_ENDPOINT
-        self.request_params = {'wstoken': api_key,
+        self._request_params = {'wstoken': api_key,
                                'moodlewsrestformat': 'json'}
 
+    @property
+    def request_params(self):
+        return self._request_params.copy()
