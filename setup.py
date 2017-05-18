@@ -20,13 +20,13 @@ required = [
 
 setup(
     name='muddle',
-    version='0.1.0',
-    description='Moodle 2.0 WebService API Wrapper.',
+    version='0.2.0',
+    description='Moodle 3.x WebService API Wrapper.',
     long_description=open('README.rst').read() + '\n\n' +
     open('HISTORY.rst').read(),
-    author='Kit Randel',
-    author_email='kit@nocturne.net.nz',
-    url='https://github.com/squidsoup/muddle.py',
+    author='Kit Randel, Nick Phillips',
+    author_email='nick.phillips@otago.ac.nz',
+    url='https://github.com/nwp90/muddle.py',
     packages=['muddle'],
     package_data={'': ['LICENSE']},
     include_package_data=True,
@@ -39,6 +39,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.0',
-        'Programming Language :: Python :: 3.1',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ),
 )
