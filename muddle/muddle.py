@@ -4,6 +4,7 @@ from .api import course
 from .api import users
 from .api import category
 from .api import group
+from .api import localpresentation
 
 log = logging.getLogger(__name__)
 

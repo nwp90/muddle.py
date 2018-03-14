@@ -56,7 +56,7 @@ class API:
         :param list customfields: List of custom profile fields, each having 'type', 'value', 'name', 'shortname'
         :param list preferences: List of preferences, each having 'name' and 'value'
         """
-        
+
         option_params = { 'field': fieldname }
         for (index, value) in enumerate(values):
             if (clean and (fieldname == 'username')):

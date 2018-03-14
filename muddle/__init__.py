@@ -17,4 +17,4 @@ __version__ = '0.2.0'
 
 # Module namespace.
 
-from .muddle import Config, group, users, course, category
+from .muddle import Config, group, users, course, category, localpresentation
