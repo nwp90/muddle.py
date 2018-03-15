@@ -1,4 +1,3 @@
-import requests
 from muddle.utils import valid_options, clean_username
 
 class API:
@@ -66,4 +65,4 @@ class API:
         params = {'wsfunction': 'core_user_get_users_by_field'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.get(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.get(self.config.api_url, params=params).json()

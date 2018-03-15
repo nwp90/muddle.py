@@ -1,4 +1,5 @@
 import logging
+import requests
 
 from .api import course
 from .api import users
@@ -21,9 +22,14 @@ class Config:
     >>> config = muddle.Config(api_key='dsghsa8casjnajk833', api_url='https://my.moodle.example.com')
     """
 
-    def __init__(self, api_key, api_url):
+    def __init__(self, api_key=None, api_url=None, session=None, verify=None):
         self.api_key = api_key
         self.api_url = api_url + MOODLE_WS_ENDPOINT
+        if session is None:
+            session = requests.Session()
+        if verify is not None:
+            session.verify = verify
+        self.session = session
         self._request_params = {'wstoken': api_key,
                                'moodlewsrestformat': 'json'}
 

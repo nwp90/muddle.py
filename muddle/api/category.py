@@ -1,4 +1,3 @@
-import requests
 from muddle.utils import valid_options
 
 
@@ -25,7 +24,7 @@ class API:
 
         params.update(self.config.request_params)
 
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)
 
     def create(self, category_name, **kwargs):
         """
@@ -65,7 +64,7 @@ class API:
             params.update(option_params)
             params.update(self.config.request_params)
 
-            return requests.post(self.config.api_url, params=params, verify=False)
+            return self.config.session.post(self.config.api_url, params=params)
 
     def delete(self, category_id, new_parent=None, recursive=False):
         """
@@ -88,7 +87,7 @@ class API:
             params.update({'categories[0][newparent]': new_parent})
         params.update(self.config.request_params)
 
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)
 
     def update(self, category_id, **kwargs):
         """
@@ -123,4 +122,4 @@ class API:
             params.update(option_params)
             params.update(self.config.request_params)
 
-            return requests.post(self.config.api_url, params=params, verify=False)
+            return self.config.session.post(self.config.api_url, params=params)

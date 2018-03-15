@@ -1,4 +1,3 @@
-import requests
 from muddle.utils import valid_options
 
 class API:
@@ -50,7 +49,7 @@ class API:
 
         Missing from API:
         :keyword int categorysortorder: sort order into the category
-        
+
         Example Usage::
 
         >>> import muddle
@@ -80,12 +79,12 @@ class API:
                       'courses[0][categoryid]': category_id}
             params.update(option_params)
             params.update(self.config.request_params)
-            return requests.post(self.config.api_url, params=params, verify=False)
+            return self.config.session.post(self.config.api_url, params=params)
 
     def get_courses(self, idlist):
         """
         Fetch course data for specified course ids.
-        
+
         Data fetched:
         :keyword int id: course id
         :keyword string shortname: course short name
@@ -123,7 +122,7 @@ class API:
             'wsfunction': 'core_course_get_courses',
             'ids': idlist
         })
-        return requests.get(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.get(self.config.api_url, params=params).json()
 
     def get_courses_by_field(self, fieldname, value):
         """
@@ -172,7 +171,7 @@ class API:
             'field': fieldname,
             'value': value,
         })
-        return requests.get(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.get(self.config.api_url, params=params).json()
 
     def delete(self, course_id):
         """
@@ -186,7 +185,7 @@ class API:
         params = {'wsfunction': 'core_course_delete_courses',
                   'courseids[0]': course_id}
         params.update(self.config.request_params)
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)
 
     def get_course_contents(self, course_id):
         """
@@ -202,7 +201,7 @@ class API:
         params = self.config.request_params
         params.update({'wsfunction': 'core_course_get_contents',
                        'courseid': course_id})
-        return requests.get(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.get(self.config.api_url, params=params).json()
 
     def duplicate(self, course_id, fullname, shortname, categoryid,
                   visible=True, **kwargs):
@@ -267,7 +266,7 @@ class API:
             params.update(option_params)
             params.update(self.config.request_params)
 
-            return requests.post(self.config.api_url, params=params, verify=False)
+            return self.config.session.post(self.config.api_url, params=params)
 
     def export_data(self, course_id, export_to, delete_content=False):
         """
@@ -288,4 +287,4 @@ class API:
                   'deletecontent': int(delete_content)}
         params.update(self.config.request_params)
 
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)

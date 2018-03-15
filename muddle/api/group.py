@@ -1,4 +1,3 @@
-import requests
 from muddle.utils import valid_options
 
 
@@ -49,12 +48,12 @@ class API:
         params = {'wsfunction': 'core_group_create_groups'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.post(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.post(self.config.api_url, params=params).json()
 
     def get_groups(self, idlist):
         """
         Fetch group data for specified group ids.
-        
+
         Data fetched is as per create_groups.
         """
         params = self.config.request_params
@@ -62,12 +61,12 @@ class API:
             'wsfunction': 'core_group_get_groups',
             'ids': idlist
         })
-        return requests.get(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.get(self.config.api_url, params=params).json()
 
     def get_course_groups(self, course_id):
         """
         Fetch groups for specified course id.
-        
+
         Data fetched is as per create_groups, but with the addition of 'id' for
         each group.
         """
@@ -76,7 +75,7 @@ class API:
             'wsfunction': 'core_group_get_course_groups',
             'courseid': course_id
         })
-        return requests.get(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.get(self.config.api_url, params=params).json()
 
     def delete_groups(self, idlist):
         """
@@ -95,12 +94,12 @@ class API:
         params = {'wsfunction': 'core_group_delete_groups'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)
 
     def get_group_members(self, idlist):
         """
         Fetch group members for specified group ids.
-        
+
         Returns a list of dicts with 'groupid' and 'userids' entries. 'userids'
         value is a list of user ids.
         """
@@ -112,7 +111,7 @@ class API:
         params = {'wsfunction': 'core_group_get_group_members'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.get(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.get(self.config.api_url, params=params).json()
 
     def add_group_members(self, members):
         """
@@ -120,7 +119,7 @@ class API:
 
         Parameter is a list of dicts with keys 'groupid' and 'userid'; specified
         users will be added to specified groups.
-        
+
         Returns nothing.
         """
         option_params = {}
@@ -132,7 +131,7 @@ class API:
         params = {'wsfunction': 'core_group_add_group_members'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)
 
     def delete_group_members(self, members):
         """
@@ -140,7 +139,7 @@ class API:
 
         Parameter is a list of dicts with keys 'groupid' and 'userid'; specified
         users will be removed from specified groups.
-        
+
         Returns nothing.
         """
         option_params = {}
@@ -152,7 +151,7 @@ class API:
         params = {'wsfunction': 'core_group_delete_group_members'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)
 
     def create_groupings(self, groupings):
         """
@@ -193,7 +192,7 @@ class API:
         params = {'wsfunction': 'core_group_create_groupings'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.post(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.post(self.config.api_url, params=params).json()
 
     def update_groupings(self, groupings):
         """
@@ -233,12 +232,12 @@ class API:
         params = {'wsfunction': 'core_group_update_groupings'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)
 
     def get_groupings(self, idlist, returngroups=True):
         """
         Fetch grouping details for specified grouping ids.
-        
+
         Returns a list of dicts as per params to update_groupings, but with
         addition of 'groups' key for each grouping. 'groups' value is a list
         of dicts representing groups, as per get_groups.
@@ -256,12 +255,12 @@ class API:
         }
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.get(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.get(self.config.api_url, params=params).json()
 
     def get_course_groupings(self, course_id):
         """
         Fetch groupings for specified course id.
-        
+
         Data fetched is as per that supplied to update_groupings.
         Groups belonging to groupings are not retrieved.
         """
@@ -270,7 +269,7 @@ class API:
             'wsfunction': 'core_group_get_course_groupings',
             'courseid': course_id
         })
-        return requests.get(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.get(self.config.api_url, params=params).json()
 
     def delete_groupings(self, idlist):
         """
@@ -289,7 +288,7 @@ class API:
         params = {'wsfunction': 'core_group_delete_groupings'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)
 
     def assign_grouping(self, assignments):
         """
@@ -297,7 +296,7 @@ class API:
 
         Parameter is a list of dicts with keys 'groupingid' and 'groupid'; specified
         groups will be added to specified groupings.
-        
+
         Returns nothing.
         """
         option_params = {}
@@ -309,5 +308,5 @@ class API:
         params = {'wsfunction': 'core_group_assign_grouping'}
         params.update(option_params)
         params.update(self.config.request_params)
-        return requests.post(self.config.api_url, params=params, verify=False)
+        return self.config.session.post(self.config.api_url, params=params)
 

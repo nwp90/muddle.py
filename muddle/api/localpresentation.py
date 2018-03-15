@@ -1,4 +1,3 @@
-import requests
 from muddle.utils import valid_options
 
 class API:
@@ -32,4 +31,4 @@ class API:
             'course': coursename,
             'role': rolename,
         })
-        return requests.post(self.config.api_url, params=params, verify=False).json()
+        return self.config.session.post(self.config.api_url, params=params).json()
