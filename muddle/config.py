@@ -61,7 +61,12 @@ class AppConfig():
         logging.basicConfig()
         self.add_defaults()
 
+    def set_options(self, options):
+        """ Set options if not using cli """
+        self.args = options
+
     def cli(self, description=None):
+        """ Set up args/options if using cli """
         if description is None:
             argparser = argparse.ArgumentParser()
         else:
