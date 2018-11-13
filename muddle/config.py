@@ -42,7 +42,8 @@ class AppConfig():
     # argparser: fully set up argparser instance if using cli
     argparser = None
     # args: parsed args from argparser.parse_args()
-    args = {}
+    args = argparse.Namespace()
+    options = {}
     # conf: stored JSON config
     # _m: WSConfig for service in use
 
@@ -63,7 +64,8 @@ class AppConfig():
 
     def set_options(self, options):
         """ Set options if not using cli """
-        self.args = options
+        # Do we want to copy?
+        self.options = options
 
     def cli(self, description=None):
         """ Set up args/options if using cli """
@@ -77,6 +79,7 @@ class AppConfig():
         self.argparser = argparser
         self.add_args()
         self.args = argparser.parse_args()
+        self.options = vars(self.args)
 
     # Override this in child class or call with defaults dict to add extra or update defaults if needed
     def add_defaults(self, defaults=None):
@@ -157,8 +160,8 @@ class AppConfig():
         var = conf.get(key, None)
         if var is None:
             var = self.defaults.get(name, None)
-        if getattr(self.args, name, None) is not None:
-            var = getattr(self.args, name, None)
+        if self.options.get(name, None) is not None:
+            var = self.options.get(name, None)
         return var
 
     def read_json_config(self):
