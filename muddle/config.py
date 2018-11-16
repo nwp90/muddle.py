@@ -19,13 +19,16 @@ class WSConfig:
     >>> import muddle
     >>> config = muddle.config.WSConfig(api_key='dsghsa8casjnajk833', api_url='https://my.moodle.example.com')
     """
-
+    verify = None
+    session = None
+    
     def __init__(self, api_key=None, api_url=None, session=None, verify=None):
         self.api_key = api_key
         self.api_url = api_url + MOODLE_WS_ENDPOINT
         if session is None:
             session = requests.Session()
         if verify is not None:
+            self.verify = verify
             session.verify = verify
         self.session = session
         self._request_params = {
