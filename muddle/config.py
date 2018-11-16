@@ -196,7 +196,7 @@ class AppConfig():
             self.error(u'No service specified')
         service_config = {}
         for key in self.service_defaultables:
-            service_config[key] = self.get_item('default_%s' % key)
+            service_config[key] = self.get_item(key)
         service_config.update(services.get(service, None))
         if service_config is None:
             self.error(u"No config available for service '%s'" % service)
