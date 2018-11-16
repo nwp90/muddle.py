@@ -56,7 +56,10 @@ class AppConfig():
         'loglevel': 'CRITICAL',
         'loggername': None,
         'requestsloglevel': 'CRITICAL',
+        'session': None,
+        'verify': None
         }
+    service_defaultables = ('verify', 'session')
 
     def __init__(self):
         logging.basicConfig()
@@ -188,7 +191,10 @@ class AppConfig():
         services = self.get_item('services')
         if service is None:
             self.error(u'No service specified')
-        service_config = services.get(service, None)
+        service_config = {}
+        for key in self.service_defaultables:
+            service_config[key] = self.get_item('default_%s' % key)
+        service_config.update(services.get(service, None))
         if service_config is None:
             self.error(u"No config available for service '%s'" % service)
         return service_config
@@ -200,5 +206,12 @@ class AppConfig():
             service = self.get_service()
             moodlebase = service['baseurl']
             moodletoken = service['token']
-            self._m = WSConfig(moodletoken, moodlebase)
+            session = service['session']
+            verify = service['verify']
+            self._m = WSConfig(
+                api_key=moodletoken,
+                api_url=moodlebase,
+                session=session,
+                verify=verify
+            )
         return self._m
