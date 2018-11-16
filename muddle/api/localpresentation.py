@@ -32,3 +32,12 @@ class API:
             'role': rolename,
         })
         return self.config.session.post(self.config.api_url, params=params).json()
+
+    def get_grade_items(self, coursename):
+        params = self.config.request_params
+        params.update({
+            'wsfunction': 'local_presentation_get_course_grade_items',
+            'course': coursename
+        })
+        return self.config.session.get(self.config.api_url, params=params).json()
+
