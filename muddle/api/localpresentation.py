@@ -33,7 +33,35 @@ class API:
         })
         return self.config.session.post(self.config.api_url, params=params).json()
 
-    def get_grade_items(self, coursename):
+    def get_course_grade_items(self, coursename):
+        """
+        Get grade items in given course
+
+        :param string coursename: The course's shortname
+
+        Data fetched is an array of dicts with:
+        :keyword integer id: grade_item id
+        :keyword integer courseid: User's firstname
+        :keyword string courseshortname: User's lastname
+        :keyword integer categoryid: category id
+        :keyword integer categoryparent: category parent id
+        :keyword string categoryname: category name
+        :keyword string gradename: grade item name
+        :keyword string gradeitemtype: grade item type (e.g. "course", "mod")
+        :keyword string grademodule: module name where itemtype is "mod"
+        :keyword string gradeidnumber: external id (string) for grade item, unique per-course
+        :keyword integer gradetype: ?
+        :keyword integer scaleid: id of grade scale in use
+        :keyword boolean scaleglobal: whether grade scale in use is global
+        :keyword string scalename: name of grade scale in use
+        :keyword integer sortorder: sort order for assessment within course
+
+        Example Usage::
+
+        >>> import muddle
+        >>> muddle.localpresentation().get_course_graede_items('2018d4_GP')
+        """
+
         params = self.config.request_params
         params.update({
             'wsfunction': 'local_presentation_get_course_grade_items',
